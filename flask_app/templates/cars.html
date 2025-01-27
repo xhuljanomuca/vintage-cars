@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Vintage Cars</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+</head>
+<body>
+    <nav class="navbar navbar-light bg-light">
+        <form class="container-fluid justify-content-between">
+          <h1 class="me-2" type="button">Welcome {{loggedUser.first_name}}!</h1>
+          <div>
+            <a href="/add/car" class="btn btn-sm btn-primary" type="button">+ Post a Car For Sale</a>
+            <a href="/logout" class="btn btn-sm btn-danger" type="button">Logout</a>
+          </div>
+         </form>
+      </nav>
+      <h1 class="text-center m-2">All Vintage Cars</h1>
+
+    <table class="table w-75 m-auto">
+        <thead>
+          <tr>
+            <th scope="col">Model</th>
+            <th scope="col">Make</th>
+            <th scope="col">Price</th>
+            <th scope="col">Year</th>
+            <th scope="col">Dealer</th>
+            <th scope="col">Actions</th>
+            <th scope="col">Status</th>
+          </tr>
+        </thead>
+        <tbody>
+            {% for car in cars %}
+          <tr>
+            <td>{{car.model}}</td>
+            <td>{{car.make}}</td>
+            <td>{{car.price}}</td>
+            <td>{{car.year}}</td>
+            <td>{{car.users_id}}</td>
+            <td>
+              <a href="/cars/{{car.id}}" class="btn btn-outline-primary">View</a>
+              {% if car.users_id == loggedUser.id %}
+              <a href="/cars/edit/{{car.id}}" class="btn btn-outline-danger">Edit</a>
+              <a href="/cars/delete/{{car.id}}" class="btn btn-outline-danger">Delete</a>
+              {% endif %}
+            </td>
+            <td>
+              {{ car.status }}
+            </td>
+          </tr>
+          {% endfor %}
+          
+        </tbody>
+      </table>
+    <div class="text-end w-75 m-auto mt-3">
+      <a href="/users/purchases" class="btn btn-sm btn-info">My Purchase Orders</a>
+    </div>
+    
+</body>
+</html>
